@@ -1,7 +1,7 @@
 from copy import deepcopy
 
 directions = [(-1, -1), (0, -1), (1, -1), (-1, 0),
-            (1, 0), (-1, 1), (0, 1), (1, 1)]
+              (1, 0), (-1, 1), (0, 1), (1, 1)]
 
 
 def print_matrix(matrix):
@@ -63,9 +63,9 @@ def part_two(seats):
                 for direction in directions:
                     ptr_row = row
                     ptr_col = col
-                    while ptr_row >= 0 and ptr_col >= 0 and ptr_row < rows_total and ptr_col < cols_total:
+                    while ptr_row in range(rows_total) and ptr_col in range(cols_total):
                         try:
-                            if ptr_row + direction[0] >= 0 and ptr_col + direction[1] >= 0:
+                            if ptr_row + direction[0] in range(rows_total) and ptr_col + direction[1] in range(cols_total):
                                 if seats[ptr_row + direction[0]][ptr_col + direction[1]] == 'L':
                                     break
                                 if seats[ptr_row + direction[0]][ptr_col + direction[1]] == '#':
@@ -83,9 +83,9 @@ def part_two(seats):
                 for direction in directions:
                     ptr_row = row
                     ptr_col = col
-                    while ptr_row >= 0 and ptr_col >= 0 and ptr_row < rows_total and ptr_col < cols_total:
+                    while ptr_row in range(rows_total) and ptr_col in range(cols_total):
                         try:
-                            if ptr_row + direction[0] >= 0 and ptr_col + direction[1] >= 0:
+                            if ptr_row + direction[0] in range(rows_total) and ptr_col + direction[1] in range(cols_total):
                                 if seats[ptr_row + direction[0]][ptr_col + direction[1]] == 'L':
                                     break
                                 if seats[ptr_row + direction[0]][ptr_col + direction[1]] == '#':
