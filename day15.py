@@ -12,10 +12,23 @@ def part_one(inp):
 
 
 def part_two(inp):
-    pass
+    last_indexes = {}
+    for index, num in enumerate(inp):
+        last_indexes[num] = index + 1
+    cur_index = len(inp)
+    last_said = inp[-1]
+    while cur_index < 30000000:
+        if last_said not in last_indexes.keys():
+            last_indexes[last_said] = cur_index
+            last_said = 0
+        else:
+            diff = cur_index - last_indexes[last_said]
+            last_indexes[last_said] = cur_index
+            last_said = diff
+        cur_index += 1
+    return last_said
 
 
-with open("day14.txt") as f:
-    inp = [18, 8, 0, 5, 4, 1, 20]
-    print(part_one(inp))
-    # print(part_two(inp))
+inp = [18, 8, 0, 5, 4, 1, 20]
+print(part_one(inp))
+print(part_two(inp))
