@@ -18,3 +18,8 @@ def input_as_ints(filename: str) -> List[int]:
     lines = input_as_lines(filename)
     def line_as_int(l): return int(l.rstrip('\n'))
     return list(map(line_as_int, lines))
+
+
+def print_matrix(matrix):
+    for row in matrix:
+        print(" ".join([str(x) for x in row]))
