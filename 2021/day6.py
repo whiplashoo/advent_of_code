@@ -7,6 +7,7 @@ with open("day6.txt") as f:
 # PART 2
 fishes = [inp.count(i) for i in range(9)]
 for i in range(256):
+    print(fishes)
     next_fish = fishes.pop(0)
     fishes[6] += next_fish
     fishes.append(next_fish)
