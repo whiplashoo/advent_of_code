@@ -1,5 +1,4 @@
-from aoc import input_as_lines, print_matrix
-from itertools import permutations
+from aoc import input_as_lines
 from copy import deepcopy
 
 inp = input_as_lines("day8.txt")
