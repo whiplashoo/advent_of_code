@@ -27,4 +27,4 @@ def print_matrix(matrix):
 
 
 def parse_ints_str(line: str) -> List[int]:
-    return [int(x) for x in re.findall('[0-9]+', line)]
+    return [int(x) for x in re.findall(r'[\+\-]?[0-9]+', line)]
