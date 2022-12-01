@@ -15,7 +15,3 @@ print(max(cals))
 
 # PART 2
 print(sum(sorted(cals, reverse=True)[:3]))
-
-
-# for i in inp:
-#     print(i)
