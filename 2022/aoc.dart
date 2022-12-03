@@ -1,11 +1,12 @@
 import 'dart:io';
 
-String inputAsString(int day) {
+String inputAsString(int day, {test = false}) {
+  if (test) return File('2022/day${day}t.txt').readAsStringSync();
   return File('2022/day${day}.txt').readAsStringSync();
 }
 
-List<String> inputAsLines(int day) {
-  return inputAsString(day).split('\n');
+List<String> inputAsLines(int day, {test = false}) {
+  return inputAsString(day, test: test).split('\n');
 }
 
 List<int> inputAsInts(int day) {
