@@ -1,6 +1,6 @@
 # aoc.py
-from typing import List
 import re
+from typing import List
 
 
 def input_as_string(filename: str) -> str:
@@ -28,3 +28,7 @@ def print_matrix(matrix):
 
 def parse_ints_str(line: str) -> List[int]:
     return [int(x) for x in re.findall(r'[\+\-]?[0-9]+', line)]
+
+
+def parse_positive_ints_str(line: str) -> List[int]:
+    return [int(x) for x in re.findall(r'[\+]?[0-9]+', line)]
