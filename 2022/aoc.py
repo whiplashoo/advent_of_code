@@ -1,4 +1,5 @@
 # aoc.py
+import os
 import re
 from typing import List
 
@@ -32,3 +33,24 @@ def parse_ints_str(line: str) -> List[int]:
 
 def parse_positive_ints_str(line: str) -> List[int]:
     return [int(x) for x in re.findall(r'[\+]?[0-9]+', line)]
+
+
+def create_matrix(rows, cols):
+    return [[0 for _ in range(cols)] for _ in range(rows)]
+
+
+def generate_files():
+    files = [f for f in os.listdir('.') if os.path.isfile(f)]
+    days = [int(re.findall(r'\d+', f)[0])
+            for f in files if f.startswith("day")]
+    next_day = max(days) + 1
+    next_day_str = str(next_day)
+    open("day" + next_day_str + ".py", "w").close()
+    open("day" + next_day_str + ".dart", "w").close()
+    open("day" + next_day_str + ".txt", "w").close()
+    open("day" + next_day_str + "t.txt", "w").close()
+    print("Created day" + next_day_str + "files.")
+
+
+if __name__ == "__main__":
+    generate_files()
