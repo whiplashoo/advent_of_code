@@ -19,16 +19,16 @@ def compare(left, right):
     n = max(len(left), len(right))
     for i in range(n):
         if i >= len(left):
-            return 1
+            return True  # change to 1 for Part 2
         if i >= len(right):
-            return -1
+            return False  # change to -1 for Part 2
         left_val = left[i]
         right_val = right[i]
         if isinstance(left_val, int) and isinstance(right_val, int):
             if left_val < right_val:
-                return 1
+                return True  # change to 1 for Part 2
             if left_val > right_val:
-                return -1
+                return False  # change to -1 for Part 2
         else:
             if isinstance(left_val, int):
                 left_val = [left_val]
@@ -46,13 +46,12 @@ idx = 1
 for line in inp:
     if line == "":
         if compare(packets[0], packets[1]):
-            print(str(idx) + "IS OK")
             ret += idx
         packets = []
         idx += 1
         continue
-    print("------------------")
     packets.append(parse_packet(line))
+print(ret)
 
 # PART 2
 packets = [[[2]], [[6]]]
