@@ -52,16 +52,5 @@ def generate_files():
     print("Created day" + next_day_str + "files.")
 
 
-def get_manhattan_distance(p, q):
-    """ 
-    Return the manhattan distance between points p and q
-    assuming both to have the same number of dimensions
-    """
-    distance = 0
-    for p_i, q_i in zip(p, q):
-        distance += abs(p_i - q_i)
-    return distance
-
-
 if __name__ == "__main__":
     generate_files()
