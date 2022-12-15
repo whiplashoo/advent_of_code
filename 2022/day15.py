@@ -37,6 +37,7 @@ def print_inf_area(inf_area):
     print_matrix(area_matrix)
 
 
+# PART 1
 xs = set()
 for line in inp:
     scol, srow, bcol, brow = parse_ints_str(line)
@@ -51,8 +52,40 @@ for line in inp:
         draw_on_side = manh_dist - vertical_dist
         for col in range(scol - draw_on_side, scol + draw_on_side):
             xs.add(col)
-            # Add to the area dict only when debugging
-            # if area[(col, target_row)] == ".":
-            #     area[(col, target_row)] = "#"
+    # Add to the area dict only when debugging
+    # if area[(col, target_row)] == ".":
+    #     area[(col, target_row)] = "#"
+# print(len(xs))
 
-print(len(xs))
+# PART 2 (WIP)
+area = defaultdict(lambda: ".")
+xs = set()
+ys = set()
+ys_map = defaultdict(lambda: [])
+for line in inp:
+    scol, srow, bcol, brow = parse_ints_str(line)
+    sensor = (scol, srow)
+    beacon = (bcol, brow)
+    area[sensor] = "S"
+    area[beacon] = "B"
+    manh_dist = get_manhattan_distance(sensor, beacon)
+    draw_on_side = manh_dist
+    for row in range(srow, srow - manh_dist - 2, -1):
+        min_x = scol - draw_on_side
+        max_x = scol + draw_on_side + 1
+        if ys_map[row] == []:
+            ys_map[row] = [(4000000, 0)]
+        y_row = ys_map[row]  # this is a list
+        for min_max in y_row:
+            min_max[0] = min(min_x, min_max[0])
+            min_max[1] = max(max_x, min_max[1])
+        draw_on_side -= 1
+    draw_on_side = manh_dist
+    for row in range(srow + 1, srow + manh_dist + 2):
+        draw_on_side -= 1
+        for col in range(scol - draw_on_side, scol + draw_on_side + 1):
+            xs.add(col)
+            ys.add(row)
+# print_inf_area(area)
+
+limit = 4000000
