@@ -105,7 +105,6 @@ while fallen_rocks != 2022:
                                  1, col + rock_x)] = "#"
             settled = True
             top_row = max(top_row, rock_bot + rock_h)
-
     fallen_rocks += 1
 
 print(top_row)
