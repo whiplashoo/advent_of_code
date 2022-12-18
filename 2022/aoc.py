@@ -27,6 +27,11 @@ def print_matrix(matrix):
         print(" ".join([str(x) for x in row]))
 
 
+def print_matrix_reverse(matrix):
+    for row in matrix[::-1]:
+        print(" ".join([str(x) for x in row]))
+
+
 def parse_ints_str(line: str) -> List[int]:
     return [int(x) for x in re.findall(r'[\+\-]?[0-9]+', line)]
 
