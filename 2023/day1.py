@@ -12,7 +12,6 @@ for line in inp:
     ints = re.findall(r'[0-9]', line)
     first = ints[0]
     second = ints[-1]
-    print(line + " " + str(int(str(first) + "" + str(second))))
     sum += int(ints[0] + ints[-1])
 print(sum)
 
@@ -48,13 +47,10 @@ for line in inp:
             if l_occ > last_idx:
                 last_idx = l_occ
                 last_int = str(d)
-    print(first_idx, last_idx)
-    print(first_int, last_int)
     if len(first_int) > 1:
         first_int = str(digits.index(first_int) + 1)
     if len(last_int) > 1:
         last_int = str(digits.index(last_int) + 1)
     sum += int(first_int + last_int)
-    print("------------------")
             
 print(sum)
