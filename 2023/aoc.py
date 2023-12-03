@@ -63,7 +63,6 @@ def print_dict_as_matrix(d):
 def parse_ints_str(line: str) -> List[int]:
     return [int(x) for x in re.findall(r'[\+\-]?[0-9]+', line)]
 
-
 def parse_positive_ints_str(line: str) -> List[int]:
     return [int(x) for x in re.findall(r'[\+]?[0-9]+', line)]
 
@@ -79,7 +78,6 @@ def generate_files():
     next_day = max(days) + 1
     next_day_str = str(next_day)
     open("day" + next_day_str + ".py", "w").close()
-    open("day" + next_day_str + ".dart", "w").close()
     open("day" + next_day_str + ".txt", "w").close()
     open("day" + next_day_str + "t.txt", "w").close()
     print("Created day" + next_day_str + "files.")
