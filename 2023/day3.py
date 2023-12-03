@@ -3,7 +3,7 @@ from math import prod
 
 from aoc import input_as_lines
 
-inp = input_as_lines("day3t.txt")
+inp = input_as_lines("day3.txt")
 matrix = []
 
 all_nums = []
@@ -42,9 +42,10 @@ for row, line in enumerate(inp):
 moves = [(-1, 0), (0, -1), (1, 0), (0, 1), (-1,-1), (1,1), (1, -1), (-1, 1)]
 COLS = len(matrix[0])
 ROWS = len(matrix)
-found = []
-gears = defaultdict(list)
+p1_sum = 0
 p2_sum = 0
+gears = defaultdict(list)
+
 for num, ps in all_nums:
     added = False
     has_gear = False
@@ -58,7 +59,7 @@ for num, ps in all_nums:
                  continue
              a = matrix[rr][cc]
              if not a.isdigit() and a != ".":
-                found.append(num)
+                p1_sum += num
                 added = True
                 if a == "*":
                     gears[(rr,cc)].append(num)
@@ -66,5 +67,5 @@ for num, ps in all_nums:
                         p2_sum += prod(gears[(rr, cc)])
 
 
-print(sum(found))
+print(p1_sum)
 print(p2_sum)
