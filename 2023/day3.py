@@ -1,6 +1,9 @@
+from collections import defaultdict
+from math import prod
+
 from aoc import input_as_lines
 
-inp = input_as_lines("day3.txt")
+inp = input_as_lines("day3t.txt")
 matrix = []
 
 all_nums = []
@@ -40,9 +43,11 @@ moves = [(-1, 0), (0, -1), (1, 0), (0, 1), (-1,-1), (1,1), (1, -1), (-1, 1)]
 COLS = len(matrix[0])
 ROWS = len(matrix)
 found = []
-
+gears = defaultdict(list)
+p2_sum = 0
 for num, ps in all_nums:
     added = False
+    has_gear = False
     for p in ps:
         if added:
             break
@@ -55,5 +60,11 @@ for num, ps in all_nums:
              if not a.isdigit() and a != ".":
                 found.append(num)
                 added = True
+                if a == "*":
+                    gears[(rr,cc)].append(num)
+                    if len(gears[(rr, cc)]) == 2:
+                        p2_sum += prod(gears[(rr, cc)])
+
 
 print(sum(found))
+print(p2_sum)
