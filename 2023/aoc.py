@@ -66,7 +66,6 @@ def parse_ints_str(line: str) -> List[int]:
 def parse_positive_ints_str(line: str) -> List[int]:
     return [int(x) for x in re.findall(r'[\+]?[0-9]+', line)]
 
-
 def create_matrix(rows, cols):
     return [[0 for _ in range(cols)] for _ in range(rows)]
 
