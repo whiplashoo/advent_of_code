@@ -1,22 +1,25 @@
 from collections import defaultdict
+from copy import deepcopy
 
-from aoc import input_as_lines, parse_positive_ints_str
+from aoc import input_as_lines
 
+TYPES = ("HIGH", "PAIR", "2PAIR", "THREE", "FULL", "FOUR", "FIVE")
 inp = input_as_lines("day7.txt")
 
 class Card(object):
-    RANKS = (2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)
+    RANKS = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)
 
     def __init__(self, rank_str):
+        # PART 2 ranking system
         self.rank_str = rank_str
         if rank_str == "A":
-            rank_str = 14
-        if rank_str == "K":
             rank_str = 13
-        if rank_str == "Q":
+        if rank_str == "K":
             rank_str = 12
-        if rank_str == "J":
+        if rank_str == "Q":
             rank_str = 11
+        if rank_str == "J":
+            rank_str = 1
         if rank_str == "T":
             rank_str = 10
         self.rank = int(rank_str)
@@ -78,18 +81,36 @@ def find_type(cards):
         return "PAIR"
     return "HIGH"
 
-TYPES = ("HIGH", "PAIR", "2PAIR", "THREE", "FULL", "FOUR", "FIVE")
+def find_best_type(cards):
+    best = find_type(cards)
+    cards_str = "".join([str(c) for c in cards])
+    if "J" not in cards_str:
+        return best
+    best_rank = TYPES.index(best)
+    for new_rank in range(2, 14):
+        new_cards = deepcopy(cards)
+        for c in new_cards:
+            if c.rank == 1:
+                c.rank = new_rank
+        new_type = find_type(new_cards)
+        new_rank = TYPES.index(new_type)
+        if new_rank > best_rank:
+            best, best_rank = new_type, new_rank
+    return best
 
 class Hand(object):
     def __init__(self, cards, bid):
         self.cards = cards
-        self.type = find_type(self.cards)
+        self.cards_str = [str(c) for c in self.cards]
+        # PART 1
+        #self.type = find_type(self.cards)
+        # PART 2
+        self.type = find_best_type(self.cards)
         self.type_rank = TYPES.index(self.type)
         self.bid = bid
     
     def __str__(self):
-        cards_str = [str(c) for c in self.cards]
-        return "".join(cards_str) + " " + self.type + " " + str(self.type_rank)
+        return "".join(self.cards_str) + " " + self.type + " " + str(self.type_rank)
     
     def __lt__(self, other):
         if (self.type_rank < other.type_rank):
@@ -127,10 +148,5 @@ for line in inp:
     hands.append(h)
 
 ss = sorted(hands)
-rank = 1
-sum = 0
-for s in ss:
-    sum += rank * s.bid
-    rank+=1
-
+sum = sum(rank * s.bid for rank, s in enumerate(ss, start=1))
 print(sum)
