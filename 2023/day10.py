@@ -43,9 +43,9 @@ def can_move(N, new_r, new_c, cur_val, move):
     return False
     
 
+visited = set(get_start(N))
 def bfs(N, start):
     queue = [(p, 0) for p in start]
-    visited = set(start)
     while queue:
         (v, steps) = queue.pop(0)
         cur_val = N[v[0]][v[1]]
@@ -64,3 +64,4 @@ def bfs(N, start):
 
 # PART 1
 print(bfs(N, [get_start(N)]))
+print(visited)
