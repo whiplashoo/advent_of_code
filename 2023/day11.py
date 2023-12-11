@@ -26,8 +26,6 @@ for i, g in enumerate(galaxies):
             ex_galaxies[i][1] += 999999 # 1 if we are on part 2
 
 combos = list(itertools.combinations(ex_galaxies, 2))
-s = 0
-for c in combos:
-    s += get_manhattan_distance(c[0], c[1])
+s = sum([get_manhattan_distance(c[0], c[1]) for c in combos])
 
 print(s)
