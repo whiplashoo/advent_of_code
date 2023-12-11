@@ -11,24 +11,19 @@ for row, line in enumerate(inp):
         if c == "#":
             galaxies.append([row,col])
 
-print(galaxies)
-
 all_rows = set([g[0] for g in galaxies])
 all_cols = set([g[1] for g in galaxies])
 empty_rows = sorted(set(range(row)).difference(all_rows))
 empty_cols = sorted(set(range(col)).difference(all_cols))
-print(empty_rows)
-print(empty_cols)
+
 ex_galaxies = deepcopy(galaxies)
 for i, g in enumerate(galaxies):
     for r in empty_rows:
         if g[0] > r:
-            ex_galaxies[i][0] += 1
+            ex_galaxies[i][0] += 999999 # 1 if we are on part 1
     for c in empty_cols:
         if g[1] > c:
-            ex_galaxies[i][1] += 1
-
-print(ex_galaxies)
+            ex_galaxies[i][1] += 999999 # 1 if we are on part 2
 
 combos = list(itertools.combinations(ex_galaxies, 2))
 s = 0
