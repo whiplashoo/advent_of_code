@@ -1,6 +1,8 @@
+from copy import deepcopy
+
 from aoc import input_as_lines, print_matrix
 
-inp = input_as_lines("day13.txt")
+inp = input_as_lines("day13t.txt")
 N = []
 
 def scan_rows(N):
@@ -43,14 +45,35 @@ def scan_cols(N):
 s = 0
 for line in inp:
     if line == "":
-        rs = scan_rows(N)
-        cs = scan_cols(N)
-        s += rs + cs
+        found_new = False
+        for row in len(N):
+            for col in len(N[0]):
+                NN = deepcopy(N)
+                NN[row][col] = "#" if NN[row][col] == "." else "#"
+                rs = scan_rows(NN)
+                cs = scan_cols(NN)
+                if rs != 0 or cs != 0:
+                    print("FOUND NEW REFLECTION")
+                    s += rs + cs
+                    found_new = True
+                    break
+        #s += rs + cs
         N = []
     else:
         N.append([h for h in line])
 
-s += scan_rows(N) + scan_cols(N)
+for row in len(N):
+    for col in len(N[0]):
+        NN = deepcopy(N)
+        NN[row][col] = "#" if NN[row][col] == "." else "#"
+        rs = scan_rows(NN)
+        cs = scan_cols(NN)
+        if rs != 0 or cs != 0:
+            print("FOUND NEW REFLECTION")
+            s += rs + cs
+            found_new = True
+            break
+#s += scan_rows(N) + scan_cols(N)
 print(s)
 
 
