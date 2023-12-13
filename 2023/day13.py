@@ -2,10 +2,10 @@ from copy import deepcopy
 
 from aoc import input_as_lines, print_matrix
 
-inp = input_as_lines("day13t.txt")
+inp = input_as_lines("day13.txt")
 N = []
 
-def scan_rows(N):
+def scan_rows(N, prev= None):
     ROWS = len(N)
     for row in range(ROWS - 1):
         cur_row = N[row]
@@ -14,7 +14,12 @@ def scan_rows(N):
             top, bot = row, row + 1
             while True:
                 if (top == 0 or bot == ROWS -1) and N[top] == N[bot]:
-                    return (row + 1) * 100
+                    refl = (row + 1) * 100
+                    if prev == None:
+                        return refl
+                    if prev == refl:
+                        break
+                    return refl
                 if N[top] != N[bot]:
                     break
                 else:
@@ -25,7 +30,7 @@ def scan_rows(N):
 def get_col(N, col):
     return [x[col] for x in N]
 
-def scan_cols(N):
+def scan_cols(N, prev = None):
     COLS = len(N[0])
     for col in range(COLS - 1):
         cur_col = get_col(N, col)
@@ -34,7 +39,12 @@ def scan_cols(N):
             left, right = col, col + 1
             while True:
                 if (left == 0 or right == COLS - 1) and get_col(N, left) == get_col(N, right):
-                    return col + 1
+                    refl = col + 1
+                    if prev == None:
+                        return refl
+                    if prev == refl:
+                        break
+                    return refl
                 if get_col(N, left) != get_col(N, right):
                     break
                 else:
@@ -52,13 +62,11 @@ def search_p2(N, prev):
         for col in range(len(N[0])):
             NN = deepcopy(N)
             NN[row][col] = "#" if NN[row][col] == "." else "."
-            print_matrix(NN)
-            print()
-            rs = scan_rows(NN)
-            cs = scan_cols(NN)
-            if rs != 0 and rs != prev:
+            rs = scan_rows(NN, prev)
+            cs = scan_cols(NN, prev)
+            if rs != 0 :
                 return rs
-            if cs != 0 and cs != prev:
+            if cs != 0:
                 return cs
     return 0
 
@@ -66,20 +74,17 @@ s1 = 0
 s2 = 0
 for line in inp:
     if line == "":
-        prev = search_p1(N)
-        s1 += prev
-        p2 = search_p2(N, prev)
-        print(prev, p2)
-        s2 += p2
+        p1_refl = search_p1(N)
+        s1 += p1_refl
+        s2 += search_p2(N, p1_refl)
         N = []
     else:
         N.append([h for h in line])
 
-prev = search_p1(N)
-s1 += prev
+p1_refl = search_p1(N)
+s1 += p1_refl
 print(s1)
-s2 += search_p2(N, prev)
-#s += scan_rows(N) + scan_cols(N)
+s2 += search_p2(N, p1_refl)
 print(s2)
 
 
