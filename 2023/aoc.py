@@ -25,6 +25,7 @@ def input_as_ints(filename: str) -> List[int]:
 def print_matrix(matrix):
     for row in matrix:
         print(" ".join([str(x) for x in row]))
+    print()
 
 
 def print_matrix_reverse(matrix):
