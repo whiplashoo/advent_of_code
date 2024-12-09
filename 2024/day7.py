@@ -1,23 +1,24 @@
 from aoc import input_as_lines
 from itertools import product
 
-inp = input_as_lines("day7t.txt")
+inp = input_as_lines("day7.txt")
 
 ops = ["+", "*"]
+ops2 = ["+", "*", "|"]
 
 def solve(arr):
     res = arr[0]
-    sum = True
+    operator = ""
     for x in arr[1:]:
-        if x == "*":
-            sum = False
-        elif x == "+":
-            sum = True
+        if not isinstance(x, int):
+            operator = x
         else:
-            if sum:
+            if operator == "+":
                 res += x
-            else: 
+            elif operator == "*": 
                 res *= x
+            else:
+                res = int(str(res) + str(x))
     return res
 
 def process_arr(nums, op):
@@ -26,10 +27,10 @@ def process_arr(nums, op):
         arr.append(x)
         if idx < len(nums) - 1:
             arr.append(op[idx])
-    print(arr)
     return solve(arr)
         
 p1 = 0
+p2 = 0
 for line in inp:
     val = int(line.split(":")[0])
     nums = [int(x) for x in line.split(":")[1].split()]
@@ -38,7 +39,15 @@ for line in inp:
         result = process_arr(nums, op)
         if val == result:
             p1 += result
+            break
+    ops_list = product(ops2, repeat = len(nums) - 1)
+    for op in ops_list:
+        result = process_arr(nums, op)
+        if val == result:
+            p2 += result
+            break
 
 print(p1)
+print(p2)
 
 
