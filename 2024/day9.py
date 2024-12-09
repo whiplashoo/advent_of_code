@@ -1,7 +1,6 @@
 from aoc import input_as_string
 from collections import defaultdict
 from copy import deepcopy
-import time
 
 inp = input_as_string(filename="day9.txt")
 blocks = defaultdict(lambda: ".")
