@@ -6,7 +6,7 @@ inp = input_as_lines("day7.txt")
 ops = ["+", "*"]
 ops2 = ["+", "*", "|"]
 
-def solve(arr):
+def solve(arr, target):
     res = arr[0]
     operator = ""
     for x in arr[1:]:
@@ -19,15 +19,17 @@ def solve(arr):
                 res *= x
             else:
                 res = int(str(res) + str(x))
+            if res > target:
+                return None
     return res
 
-def process_arr(nums, op):
+def process_arr(nums, op, target):
     arr = []
     for idx, x in enumerate(nums):
         arr.append(x)
         if idx < len(nums) - 1:
             arr.append(op[idx])
-    return solve(arr)
+    return solve(arr, target)
         
 p1 = 0
 p2 = 0
@@ -36,13 +38,13 @@ for line in inp:
     nums = [int(x) for x in line.split(":")[1].split()]
     ops_list = product(ops, repeat = len(nums) - 1)
     for op in ops_list:
-        result = process_arr(nums, op)
+        result = process_arr(nums, op, val)
         if val == result:
             p1 += result
             break
     ops_list = product(ops2, repeat = len(nums) - 1)
     for op in ops_list:
-        result = process_arr(nums, op)
+        result = process_arr(nums, op, val)
         if val == result:
             p2 += result
             break
