@@ -17,6 +17,7 @@ for line in inp:
             dial = (dial + 1) % 100
         if dial == 0:
             p2 +=1
+    print(dial)
     if dial == 0:
         p1 += 1
 
