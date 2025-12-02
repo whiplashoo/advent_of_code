@@ -1,6 +1,6 @@
 from aoc import input_as_lines, parse_positive_ints_str
 
-inp = input_as_lines("day1.txt")
+inp = input_as_lines("day1t.txt")
 p1 = 0
 p2 = 0
 
@@ -17,7 +17,7 @@ for line in inp:
             dial = (dial + 1) % 100
         if dial == 0:
             p2 +=1
-    print(dial)
+        print(dial)
     if dial == 0:
         p1 += 1
 
