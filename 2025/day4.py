@@ -1,5 +1,4 @@
-from aoc import input_as_lines, print_matrix
-from copy import deepcopy
+from aoc import input_as_lines
 inp = input_as_lines("day4.txt")
 
 N = []
@@ -11,19 +10,19 @@ COLS = len(N[0])
 moves = [(-1, 0), (0, -1), (1, 0), (0, 1), (-1, -1), (-1, 1), (1,-1), (1, 1)]
 
 p1 = 0
-print_matrix(N)
 
 for row in range(ROWS):
     for col in range(COLS):
-        rolls = 0
-        for move in moves:
-            newR = row + move[0]
-            newC = col + move[1]
-            if newR >= 0 and newC >= 0 and newR < ROWS and newC < COLS:
-                if N[newR][newC] == "@":
-                    rolls += 1
-        if N[row][col] == "@" and rolls < 4:
-            p1 += 1
+        if N[row][col] == "@":
+            rolls = 0
+            for move in moves:
+                rr = row + move[0]
+                cc = col + move[1]
+                if rr >= 0 and cc >= 0 and rr < ROWS and cc < COLS:
+                    if N[rr][cc] == "@":
+                        rolls += 1
+            if rolls < 4:
+                p1 += 1
 
 print(p1)
 
@@ -40,10 +39,10 @@ while True:
             if N[row][col] == "@": 
                 rolls = 0
                 for move in moves:
-                    newR = row + move[0]
-                    newC = col + move[1]
-                    if newR >= 0 and newC >= 0 and newR < ROWS and newC < COLS:
-                        if N[newR][newC] == "@":
+                    rr = row + move[0]
+                    cc = col + move[1]
+                    if rr >= 0 and cc >= 0 and rr < ROWS and cc < COLS:
+                        if N[rr][cc] == "@":
                             rolls += 1
                 if rolls < 4:
                     changes.append((row,col))
