@@ -1,4 +1,5 @@
 from aoc import input_as_lines, print_matrix
+from copy import deepcopy
 inp = input_as_lines("day4.txt")
 
 N = []
@@ -25,3 +26,28 @@ for row in range(ROWS):
             p1 += 1
 
 print(p1)
+
+p2 = 0
+changes = []
+
+while True:
+    p2 += len(changes)
+    for change in changes:
+        N[change[0]][change[1]] = "." 
+    changes = []
+    for row in range(ROWS):
+        for col in range(COLS):
+            if N[row][col] == "@": 
+                rolls = 0
+                for move in moves:
+                    newR = row + move[0]
+                    newC = col + move[1]
+                    if newR >= 0 and newC >= 0 and newR < ROWS and newC < COLS:
+                        if N[newR][newC] == "@":
+                            rolls += 1
+                if rolls < 4:
+                    changes.append((row,col))
+    if len(changes) == 0:
+        break
+
+print(p2)
