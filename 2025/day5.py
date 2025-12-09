@@ -1,4 +1,5 @@
 from aoc import input_as_lines
+from copy import deepcopy
 
 inp = input_as_lines("day5t.txt")
 p1 = 0
@@ -27,5 +28,28 @@ p2 = 0
 
 opt = []
 
-for f, l in rs:
-	
+while True:
+	changed = False
+	for f, l in rs:
+		low, high = f, l
+		for f2, l2 in rs:
+			if (f,l) == (f2,l2):
+				continue
+			print((f,l), (f2,l2))
+			if f2 < f and (l2 <= l and l2 >= f):
+				low = f2
+				high = l
+				changed = True
+			elif l2 > l and (f2 >= f and f2 <= l):
+				low = f
+				high = l2
+				changed = True
+		opt.append((low, high))
+	if not changed:
+		break
+	rs = deepcopy(opt)  
+
+
+print(opt)
+
+print("Dd")
